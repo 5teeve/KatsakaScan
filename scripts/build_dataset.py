@@ -32,7 +32,11 @@ def build_dataset() -> None:
         for dossier, label in categories:
             print(f"📁 Analyse du dossier : {dossier.name} (Label: {label})")
 
-            for img_path in dossier.glob("*.jpg"):
+            for img_path in sorted(
+                list(dossier.glob("*.jpg")) +
+                list(dossier.glob("*.jpeg")) +
+                list(dossier.glob("*.png"))
+            ):
                 try:
                     fv = extract_features(img_path)
                     row = [
